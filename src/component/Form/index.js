@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
 
+const snakeToCamel = (str) => str.replace(
+  /([-_][a-z])/g,
+  (group) => group.toUpperCase().replace('_', '')
+);
+
+const renameKey = (obj, oldKey, newKey) => {    
+  Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey)); 
+  delete obj[oldKey]; 
+  return obj;
+}
+
 const Form = () => {
   const [formData, updateFormData] = useState({});
+
 
   const handleChange = (e) => {
     updateFormData({
@@ -12,7 +24,15 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData);
+
+    let newObj = {}
+    for ( var property in formData) {
+      console.log( snakeToCamel(property) ); 
+      newObj = renameKey(formData, property, snakeToCamel(property))
+    }
+
+    console.log(newObj);
+    
   };
 
   return (
@@ -35,7 +55,7 @@ const Form = () => {
 
       <br />
       
-
+      <h3>Where do you live</h3>
       <label>
         Street Address
         <input name="street_address" type="text" onChange={handleChange} />
@@ -46,10 +66,10 @@ const Form = () => {
       </label>
       <label>
         Country
-        <select name="country" onChange={handleChange} required>
+        <select name="country" defaultValue="" onChange={handleChange} required>
           <option value="" selected disabled hidden>Choose here</option>
-          <option value="canada">Canada</option>
-          <option value="usa">USA</option>
+          <option value="Canada">Canada</option>
+          <option value="Usa">USA</option>
         </select>
       </label>
       <button type="submit">Submit</button>
