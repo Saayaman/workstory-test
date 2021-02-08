@@ -1,4 +1,15 @@
 import React, { useState } from 'react';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
 
 const snakeToCamel = (str) => str.replace(
   /([-_][a-z])/g,
@@ -13,6 +24,7 @@ const renameKey = (obj, oldKey, newKey) => {
 
 const Form = () => {
   const [formData, updateFormData] = useState({});
+  const classes = useStyles();
 
 
   const handleChange = (e) => {
@@ -36,12 +48,19 @@ const Form = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} method="post">
+    <form className={classes.root} onSubmit={handleSubmit} method="post">
+      
+        <TextField
+          label="First Name"
+          type="text"
+          autoComplete="current-password"
+          name="first_name"
+        />
       <h3>Tell us about yourself</h3>
-      <label>
+      {/* <label>
         First Name
-        <input name="first_name" type="text" onChange={handleChange} />
-      </label>
+        <input name="first_name" type="text" placeholder="First Name" onChange={handleChange} />
+      </label> */}
       <br />
       <label>
         Last Name
