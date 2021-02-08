@@ -1,0 +1,7 @@
+
+
+.formColumn {
+  display: grid;
+  justify-content: center;
+  grid-row-gap: 20px;
+}
