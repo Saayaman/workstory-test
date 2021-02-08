@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
+import styles from "./Form.module.css"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,12 +26,13 @@ const renameKey = (obj, oldKey, newKey) => {
   return obj;
 }
 
-const Form = () => {
+const Form = ({ mockData }) => {
   const [formData, updateFormData] = useState({});
   const classes = useStyles();
 
 
   const handleChange = (e) => {
+
     updateFormData({
       ...formData,
       [e.target.name]: e.target.value.trim()
@@ -36,61 +41,67 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
     let newObj = {}
+
     for ( var property in formData) {
-      console.log( snakeToCamel(property) ); 
-      newObj = renameKey(formData, property, snakeToCamel(property))
+      const changedName = snakeToCamel(property)
+      if(changedName !== property) {
+        newObj = renameKey(formData, property, changedName)
+      }
     }
 
     console.log(newObj);
-    
   };
 
+  if(mockData === null) {
+    return <div>Loading...</div>
+  }
+  
   return (
-    <form className={classes.root} onSubmit={handleSubmit} method="post">
-      
-        <TextField
-          label="First Name"
-          type="text"
-          autoComplete="current-password"
-          name="first_name"
-        />
-      <h3>Tell us about yourself</h3>
-      {/* <label>
-        First Name
-        <input name="first_name" type="text" placeholder="First Name" onChange={handleChange} />
-      </label> */}
-      <br />
-      <label>
-        Last Name
-        <input name="last_name" type="text" onChange={handleChange} />
-      </label>
+    <form onSubmit={handleSubmit} method="post">
+      {mockData.questions.map(form => 
+        <div classNames={styles.formColumn} key={form.title}>
+          <h3>{form.title}</h3>
+          {form.fields.map(field => {
+            return field.type === "dropdown" ? (
+            //   <label>
+            //   {field.label}
+            //   <select name={field.name} defaultValue="" onChange={handleChange} required>
+            //     <option value="" selected disabled hidden>Choose here</option>
+            //     {field.options.map(option =>
+            //       <option value={option}>{option}</option>
+            //       )}
+            //   </select>
+            // </label>
 
-      <label>
-        Email
-      <input name="email" type="text" onChange={handleChange} /></label>
-      <label>Phone Number<input name="phone_number" type="text" onChange={handleChange} /></label>
-
-      <br />
-      
-      <h3>Where do you live</h3>
-      <label>
-        Street Address
-        <input name="street_address" type="text" onChange={handleChange} />
-      </label>
-      <label>
-        Post Code
-        <input name="post_code" type="text" onChange={handleChange} />
-      </label>
-      <label>
-        Country
-        <select name="country" defaultValue="" onChange={handleChange} required>
-          <option value="" selected disabled hidden>Choose here</option>
-          <option value="Canada">Canada</option>
-          <option value="Usa">USA</option>
-        </select>
-      </label>
+            <div key={field.label}>
+              <InputLabel>{field.label}</InputLabel>
+              <Select
+                value={""}
+                onChange={handleChange}
+              >
+                {field.options.map(option => 
+                  <MenuItem value={option}>{option}</MenuItem>
+                )}
+              </Select>
+            </div>
+            ) : (
+            <TextField
+              key={field.label}
+              label={field.label}
+              type={field.type}
+              name={field.name}
+              onChange={handleChange}
+            />
+            // <label>
+            //   {field.label}
+            //   <input name={field.name} type={field.type} onChange={handleChange} />
+            // </label>
+            )
+          }
+          )}
+        </div>
+      )}
       <button type="submit">Submit</button>
     </form >
   );
