@@ -11,11 +11,12 @@ const renameKey = (obj, oldKey, newKey) => {
   return obj;
 }
 
-const Form = () => {
+const Form = ({ mockData = {}}) => {
   const [formData, updateFormData] = useState({});
 
 
   const handleChange = (e) => {
+
     updateFormData({
       ...formData,
       [e.target.name]: e.target.value.trim()
@@ -24,54 +25,49 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
     let newObj = {}
+
     for ( var property in formData) {
-      console.log( snakeToCamel(property) ); 
-      newObj = renameKey(formData, property, snakeToCamel(property))
+      const changedName = snakeToCamel(property)
+      if(changedName !== property) {
+        newObj = renameKey(formData, property, changedName)
+      }
     }
 
     console.log(newObj);
     
   };
 
+  if(mockData === null) {
+    return <div>Loading...</div>
+  }
+
   return (
     <form onSubmit={handleSubmit} method="post">
-      <h3>Tell us about yourself</h3>
-      <label>
-        First Name
-        <input name="first_name" type="text" onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        Last Name
-        <input name="last_name" type="text" onChange={handleChange} />
-      </label>
-
-      <label>
-        Email
-      <input name="email" type="text" onChange={handleChange} /></label>
-      <label>Phone Number<input name="phone_number" type="text" onChange={handleChange} /></label>
-
-      <br />
-      
-      <h3>Where do you live</h3>
-      <label>
-        Street Address
-        <input name="street_address" type="text" onChange={handleChange} />
-      </label>
-      <label>
-        Post Code
-        <input name="post_code" type="text" onChange={handleChange} />
-      </label>
-      <label>
-        Country
-        <select name="country" defaultValue="" onChange={handleChange} required>
-          <option value="" selected disabled hidden>Choose here</option>
-          <option value="Canada">Canada</option>
-          <option value="Usa">USA</option>
-        </select>
-      </label>
+      {mockData.questions.map(form => 
+        <>
+          <h3>{form.title}</h3>
+          {form.fields.map(field => {
+            return field.type === "dropdown" ? (
+            <label>
+              {field.label}
+              <select name={field.name} defaultValue="" onChange={handleChange} required>
+                <option value="" selected disabled hidden>Choose here</option>
+                {field.options.map(option =>
+                  <option value={option}>{option}</option>
+                )}
+              </select>
+            </label>
+            ) : (
+            <label>
+              {field.label}
+              <input name={field.name} type={field.type} onChange={handleChange} />
+            </label>
+            )
+          }
+          )}
+        </>
+      )}
       <button type="submit">Submit</button>
     </form >
   );
