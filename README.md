@@ -8,6 +8,8 @@ Using React, create a simple one page form that takes its structure from the JSO
 The application does not need to persist the data anywhere other than local state for this exercise. Include a simple README.md file with instructions on how to run the application and display the working form.
 
 Sample form config:
+
+```
 {
   "questions": [
     {
@@ -29,6 +31,7 @@ Sample form config:
     }
   ]
 }
+```
 
 After reading the above config, the application should display a form with 2 questions, "Tell us about yourself" and "Where do you live". The first question should have 4 text input fields displayed underneath, the second should have 2 text input fields and 1 dropdown. All fields should use the name and label from the config (and in the case of dropdowns, the "options" field).
 
