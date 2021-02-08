@@ -11,7 +11,7 @@ const renameKey = (obj, oldKey, newKey) => {
   return obj;
 }
 
-const Form = ({ mockData = {}}) => {
+const Form = ({ mockData }) => {
   const [formData, updateFormData] = useState({});
 
 
