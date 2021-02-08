@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# Instructions 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This isn't designed to be difficult, it is designed to showcase coding style. Please take the time you need to complete it to a quality that you would be comfortable submitting for a code review (i.e. production ready).
 
-## Available Scripts
 
-In the project directory, you can run:
+Using React, create a simple one page form that takes its structure from the JSON config below. Normally the config would be read from a remote server but for this exercise you can mock a simple retrieval function which returns this hard coded JSON.
 
-### `yarn start`
+The application does not need to persist the data anywhere other than local state for this exercise. Include a simple README.md file with instructions on how to run the application and display the working form.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Sample form config:
+{
+  "questions": [
+    {
+      "title": "Tell us about yourself",
+      "fields": [
+        { "name": "first_name", "label": "First Name", "type": "text" },
+        { "name": "last_name", "label": "Last Name", "type": "text" },
+        { "name": "email", "label": "Email", "type": "text" },
+        { "name": "phone_number", "label": "Phone Number", "type": "text" }
+      ]
+    },
+    {
+      "title": "Where do you live?",
+      "fields": [
+        { "name": "street_address", "label": "Street Address", "type": "text" },
+        { "name": "post_code", "label": "Post Code", "type": "text" },
+        { "name": "country", "label": "Country", "type": "dropdown", "options": ["Canada", "USA"] },
+      ]
+    }
+  ]
+}
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+After reading the above config, the application should display a form with 2 questions, "Tell us about yourself" and "Where do you live". The first question should have 4 text input fields displayed underneath, the second should have 2 text input fields and 1 dropdown. All fields should use the name and label from the config (and in the case of dropdowns, the "options" field).
 
-### `yarn test`
+The application should be structured in such a way that you are able to add new questions and fields by updating only the config. To keep things simple assume there are only 2 types of field: text inputs and dropdowns.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+At the end of the form include a button which prints the current application state of your application to the browser console. The output should look similar to the below:
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+firstName: "Lana",
+lastName: "Kane",
+country: "Canada",
+email: "lana@example.com",
+phoneNumber: "555-123-1111",
+postCode: "V6B 1S5",
+streetAddress: "123 Evergreen Drive"
