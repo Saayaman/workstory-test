@@ -1,3 +1,18 @@
+### `yarn start`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
+
+
+## Notes for the reader
+
+- The json file is inside public file 
+- Some of the errors occuring are due to adding UI components (material UI)
+
+
 # Instructions 
 
 This isn't designed to be difficult, it is designed to showcase coding style. Please take the time you need to complete it to a quality that you would be comfortable submitting for a code review (i.e. production ready).
