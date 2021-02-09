@@ -6,12 +6,10 @@ import Form from './component/Form'
 function App() {
 
   const [mockData, setMockData] = useState(null);
-
-  console.log(window.location.href);
   
   useEffect(async()=>{
     try {
-      const response = await fetch('http://localhost:3000/data.json',{
+      const response = await fetch(`${window.location.href}data.json`,{
         headers : { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
