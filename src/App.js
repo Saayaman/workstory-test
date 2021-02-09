@@ -6,6 +6,8 @@ import Form from './component/Form'
 function App() {
 
   const [mockData, setMockData] = useState(null);
+
+  console.log(window.location.href);
   
   useEffect(async()=>{
     try {

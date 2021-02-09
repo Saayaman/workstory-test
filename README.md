@@ -10,7 +10,7 @@ You will also see any lint errors in the console.
 ## Notes for the reader
 
 - The json file is inside public file 
-- Some of the errors occuring are due to adding UI components (material UI)
+- Added material UI because WorkStory was using this for the forms (Some of the errors occuring due to that)
 
 
 # Instructions 
